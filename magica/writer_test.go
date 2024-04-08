@@ -2,7 +2,7 @@ package magica
 
 import (
 	"bytes"
-	"github.com/mattkimber/gandalf/utils"
+	"github.com/ahyangyi/gandalf/utils"
 	"testing"
 )
 

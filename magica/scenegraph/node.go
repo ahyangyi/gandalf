@@ -1,30 +1,30 @@
 package scenegraph
 
 import (
-	"github.com/mattkimber/gandalf/geometry"
-	"github.com/mattkimber/gandalf/magica/types"
+	"github.com/ahyangyi/gandalf/geometry"
+	"github.com/ahyangyi/gandalf/magica/types"
 )
 
 type Map map[int]types.SceneGraphItem
 
 type Model struct {
 	Points types.PointData
-	Size types.Size
+	Size   types.Size
 }
 
 type Node struct {
 	Location geometry.Point
-	Size types.Size
-	Models []Model
+	Size     types.Size
+	Models   []Model
 	Children []Node
 }
 
 func GetScenegraph(scenegraphMap Map, allowedLayers []int, pointData []types.PointData, sizeData []types.Size) Node {
 	if len(scenegraphMap) == 0 && len(sizeData) > 0 && len(pointData) > 0 {
-		return Node {
+		return Node{
 			Location: geometry.Point{},
-			Size: sizeData[0],
-			Models: []Model{ {Points: pointData[0], Size: sizeData[0] }},
+			Size:     sizeData[0],
+			Models:   []Model{{Points: pointData[0], Size: sizeData[0]}},
 		}
 	} else if len(scenegraphMap) > 0 {
 		return Compose(scenegraphMap, scenegraphMap[0], 0, 0, 0, -1, allowedLayers, pointData, sizeData)

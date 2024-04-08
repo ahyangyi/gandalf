@@ -1,8 +1,8 @@
 package scenegraph
 
 import (
-	"github.com/mattkimber/gandalf/geometry"
-	"github.com/mattkimber/gandalf/magica/types"
+	"github.com/ahyangyi/gandalf/geometry"
+	"github.com/ahyangyi/gandalf/magica/types"
 )
 
 func (n *Node) Decompose() (graph Map, pointData []types.PointData, sizeData []types.Size) {
@@ -22,8 +22,8 @@ func (n *Node) decomposeWithIDs(id, shapeID *int, graph Map, pointData *[]types.
 		NodeID:     *id,
 		Attributes: types.Dictionary{},
 		ReservedID: -1,
-		LayerID: 0,
-		Frames: []types.Frame{{X: 0, Y: 0, Z: 0}},
+		LayerID:    0,
+		Frames:     []types.Frame{{X: 0, Y: 0, Z: 0}},
 	}
 	graph[*id] = &rootTranslation
 	*id++
@@ -130,7 +130,8 @@ func Compose(graph Map, current types.SceneGraphItem, x, y, z, layer int, allowe
 
 	children := make([]Node, 0)
 	for _, child := range current.GetChildren() {
-		next, ok := graph[child]; if ok {
+		next, ok := graph[child]
+		if ok {
 			children = append(children, Compose(graph, next, x, y, z, layer, allowedLayers, pointData, sizeData))
 		}
 	}

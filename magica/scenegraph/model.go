@@ -1,9 +1,9 @@
 package scenegraph
 
 import (
-	"github.com/mattkimber/gandalf/geometry"
-	"github.com/mattkimber/gandalf/magica/types"
-	"github.com/mattkimber/gandalf/utils"
+	"github.com/ahyangyi/gandalf/geometry"
+	"github.com/ahyangyi/gandalf/magica/types"
+	"github.com/ahyangyi/gandalf/utils"
 )
 
 type OutputModel struct {
@@ -20,7 +20,7 @@ func (n *Node) GetCompositeModel() OutputModel {
 
 	n.AppendVoxels(offset, size, &data)
 
-	return OutputModel {
+	return OutputModel{
 		Size: size,
 		Data: data,
 	}

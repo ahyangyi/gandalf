@@ -3,7 +3,7 @@ package types
 import (
 	"bytes"
 	"encoding/binary"
-	"github.com/mattkimber/gandalf/geometry"
+	"github.com/ahyangyi/gandalf/geometry"
 )
 
 type Size geometry.Point
@@ -39,11 +39,10 @@ func (s *Size) GetBytes() ([]byte, error) {
 	return buf.Bytes(), nil
 }
 
-
-func(s *Size) IsChunk() bool {
+func (s *Size) IsChunk() bool {
 	return true
 }
 
-func(s *Size) GetChunkName() string {
+func (s *Size) GetChunkName() string {
 	return "SIZE"
 }

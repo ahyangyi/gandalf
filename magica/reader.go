@@ -3,9 +3,9 @@ package magica
 import (
 	"encoding/binary"
 	"fmt"
-	"github.com/mattkimber/gandalf/geometry"
-	"github.com/mattkimber/gandalf/magica/scenegraph"
-	"github.com/mattkimber/gandalf/magica/types"
+	"github.com/ahyangyi/gandalf/geometry"
+	"github.com/ahyangyi/gandalf/magica/scenegraph"
+	"github.com/ahyangyi/gandalf/magica/types"
 	"io"
 	"io/ioutil"
 	"os"
@@ -54,7 +54,6 @@ func getSize(handle io.Reader) int64 {
 	parsedSize := int64(binary.LittleEndian.Uint32(size[0:4]))
 	return parsedSize
 }
-
 
 func GetMagicaVoxelObject(handle io.Reader, layers []int) (VoxelObject, error) {
 	if !isHeaderValid(handle) {
@@ -110,10 +109,8 @@ func GetMagicaVoxelObject(handle io.Reader, layers []int) (VoxelObject, error) {
 		}
 	}
 
-
 	graph := scenegraph.GetScenegraph(scenegraphMap, layers, pointData, sizeData)
 	model := graph.GetCompositeModel()
-
 
 	object := VoxelObject{}
 	object.PaletteData = palette
@@ -121,7 +118,6 @@ func GetMagicaVoxelObject(handle io.Reader, layers []int) (VoxelObject, error) {
 	object.Voxels = model.Data
 	return object, nil
 }
-
 
 func GetFromReader(handle io.Reader, layers []int) (v VoxelObject, err error) {
 	v, err = GetMagicaVoxelObject(handle, layers)
@@ -149,4 +145,3 @@ func FromFileWithLayers(filename string, layers []int) (v VoxelObject, err error
 func FromFile(filename string) (v VoxelObject, err error) {
 	return FromFileWithLayers(filename, []int{})
 }
-

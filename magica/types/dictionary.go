@@ -43,10 +43,10 @@ func (d *Dictionary) GetBytes() ([]byte, error) {
 	return buf.Bytes(), nil
 }
 
-func(d *Dictionary) IsChunk() bool {
+func (d *Dictionary) IsChunk() bool {
 	return false
 }
 
-func(d *Dictionary) GetChunkName() string {
+func (d *Dictionary) GetChunkName() string {
 	return ""
 }

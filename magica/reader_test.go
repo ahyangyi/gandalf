@@ -3,8 +3,8 @@ package magica
 import (
 	"bytes"
 	"encoding/binary"
-	"github.com/mattkimber/gandalf/geometry"
-	"github.com/mattkimber/gandalf/magica/types"
+	"github.com/ahyangyi/gandalf/geometry"
+	"github.com/ahyangyi/gandalf/magica/types"
 	"strings"
 	"testing"
 )
@@ -174,7 +174,6 @@ func getSizedByteSlice(size int64, slice []byte) []byte {
 	result = append(result, slice...)
 	return result
 }
-
 
 func TestMultipartVoxelObject(t *testing.T) {
 	object, err := FromFile("testdata/test_cube_joined.vox")

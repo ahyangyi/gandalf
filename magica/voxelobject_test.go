@@ -1,7 +1,7 @@
 package magica
 
 import (
-	"github.com/mattkimber/gandalf/geometry"
+	"github.com/ahyangyi/gandalf/geometry"
 	"testing"
 )
 

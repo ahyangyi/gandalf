@@ -7,13 +7,13 @@ import (
 
 func TestMagicaReader_GetShape(t *testing.T) {
 	shape := Shape{
-		NodeID:     1,
+		NodeID: 1,
 		Attributes: Dictionary{
 			Values: map[string]string{
 				"foo": "bar",
 			},
 		},
-		Models: []int{2,3,4},
+		Models: []int{2, 3, 4},
 	}
 
 	bytes, err := shape.GetBytes()

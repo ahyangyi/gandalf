@@ -4,9 +4,9 @@ import (
 	"bufio"
 	"encoding/binary"
 	"fmt"
-	"github.com/mattkimber/gandalf/magica/chunk"
-	"github.com/mattkimber/gandalf/magica/scenegraph"
-	"github.com/mattkimber/gandalf/magica/types"
+	"github.com/ahyangyi/gandalf/magica/chunk"
+	"github.com/ahyangyi/gandalf/magica/scenegraph"
+	"github.com/ahyangyi/gandalf/magica/types"
 	"io"
 	"os"
 	"sort"
@@ -14,7 +14,7 @@ import (
 
 const maxVoxelSize = 256
 
-func(v *VoxelObject) GetData() []byte {
+func (v *VoxelObject) GetData() []byte {
 	var graph scenegraph.Map
 	var pointData []types.PointData
 	var sizeData []types.Size
@@ -36,7 +36,7 @@ func(v *VoxelObject) GetData() []byte {
 
 	chunks := make([]chunk.Chunk, 0)
 
-	for idx, _ := range pointData {
+	for idx := range pointData {
 		size := chunk.Chunk{Item: &sizeData[idx]}
 		chunks = append(chunks, size)
 		xyzi := chunk.Chunk{Item: &pointData[idx]}
@@ -44,7 +44,7 @@ func(v *VoxelObject) GetData() []byte {
 	}
 
 	graphKeys := make([]int, 0, len(graph))
-	for k, _ := range graph {
+	for k := range graph {
 		graphKeys = append(graphKeys, k)
 	}
 	sort.Ints(graphKeys)

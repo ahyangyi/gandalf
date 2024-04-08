@@ -6,9 +6,9 @@ import (
 )
 
 type Shape struct {
-	NodeID int
+	NodeID     int
 	Attributes Dictionary
-	Models []int
+	Models     []int
 }
 
 const SGShape = "shape"
@@ -38,7 +38,6 @@ func (r *MagicaReader) GetShape() Shape {
 	s.Models = childNodes
 	return s
 }
-
 
 func (s *Shape) GetBytes() ([]byte, error) {
 	buf := new(bytes.Buffer)
@@ -84,11 +83,10 @@ func (s *Shape) GetBytes() ([]byte, error) {
 	return buf.Bytes(), nil
 }
 
-
-func(s *Shape) IsChunk() bool {
+func (s *Shape) IsChunk() bool {
 	return true
 }
 
-func(s *Shape) GetChunkName() string {
+func (s *Shape) GetChunkName() string {
 	return "nSHP"
 }

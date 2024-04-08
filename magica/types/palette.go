@@ -10,10 +10,10 @@ func (p *Palette) GetBytes() ([]byte, error) {
 	return *p, nil
 }
 
-func(p *Palette) IsChunk() bool {
+func (p *Palette) IsChunk() bool {
 	return true
 }
 
-func(p *Palette) GetChunkName() string {
+func (p *Palette) GetChunkName() string {
 	return "RGBA"
 }

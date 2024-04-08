@@ -2,7 +2,7 @@ package main
 
 import (
 	"flag"
-	"github.com/mattkimber/gandalf/magica"
+	"github.com/ahyangyi/gandalf/magica"
 	"log"
 	"strings"
 )

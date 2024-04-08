@@ -1,7 +1,7 @@
 package types
 
 import (
-	"github.com/mattkimber/gandalf/geometry"
+	"github.com/ahyangyi/gandalf/geometry"
 	"reflect"
 	"testing"
 )
@@ -9,11 +9,11 @@ import (
 func TestPointData_GetPointData(t *testing.T) {
 	pointData := PointData{
 		{
-			Point:  geometry.Point{X:1, Y: 2, Z: 3},
+			Point:  geometry.Point{X: 1, Y: 2, Z: 3},
 			Colour: 4,
 		},
 		{
-			Point:  geometry.Point{X:3, Y: 2, Z: 1},
+			Point:  geometry.Point{X: 3, Y: 2, Z: 1},
 			Colour: 5,
 		},
 	}

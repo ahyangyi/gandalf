@@ -53,7 +53,7 @@ func (r *MagicaReader) GetTranslation() Translation {
 				y, _ := strconv.Atoi(values[1])
 				z, _ := strconv.Atoi(values[2])
 
-				frames = append(frames, Frame{X: x, Y: y, Z:z})
+				frames = append(frames, Frame{X: x, Y: y, Z: z})
 			}
 		}
 	}
@@ -67,7 +67,6 @@ func (r *MagicaReader) GetTranslation() Translation {
 		Frames:      frames,
 	}
 }
-
 
 func (t *Translation) GetBytes() ([]byte, error) {
 	buf := new(bytes.Buffer)
@@ -129,10 +128,10 @@ func (t *Translation) GetBytes() ([]byte, error) {
 	return buf.Bytes(), nil
 }
 
-func(t *Translation) IsChunk() bool {
+func (t *Translation) IsChunk() bool {
 	return true
 }
 
-func(t *Translation) GetChunkName() string {
+func (t *Translation) GetChunkName() string {
 	return "nTRN"
 }

@@ -6,7 +6,7 @@ import (
 )
 
 type Group struct {
-	NodeID int
+	NodeID     int
 	Attributes Dictionary
 	ChildNodes []int
 }
@@ -35,7 +35,6 @@ func (r *MagicaReader) GetGroup() Group {
 	g.ChildNodes = childNodes
 	return g
 }
-
 
 func (g *Group) GetBytes() ([]byte, error) {
 	buf := new(bytes.Buffer)
@@ -69,10 +68,10 @@ func (g *Group) GetBytes() ([]byte, error) {
 	return buf.Bytes(), nil
 }
 
-func(g *Group) IsChunk() bool {
+func (g *Group) IsChunk() bool {
 	return true
 }
 
-func(g *Group) GetChunkName() string {
+func (g *Group) GetChunkName() string {
 	return "nGRP"
 }

@@ -1,7 +1,7 @@
 package utils
 
 import (
-	"github.com/mattkimber/gandalf/magica/types"
+	"github.com/ahyangyi/gandalf/magica/types"
 	"testing"
 )
 

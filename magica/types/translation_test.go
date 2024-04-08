@@ -16,7 +16,7 @@ func TestMagicaReader_GetTranslation(t *testing.T) {
 		ChildNodeID: 2,
 		ReservedID:  1,
 		LayerID:     5,
-		Frames:      []Frame{
+		Frames: []Frame{
 			{
 				X: 12,
 				Y: -3,

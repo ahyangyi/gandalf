@@ -22,7 +22,7 @@ func (r *MagicaReader) GetString() string {
 	return string(bytes)
 }
 
-func  (r *MagicaReader) GetInt32() int {
+func (r *MagicaReader) GetInt32() int {
 	bytes := r.buffer.Next(4)
 	return int(binary.LittleEndian.Uint32(bytes[0:4]))
 }
@@ -30,7 +30,7 @@ func  (r *MagicaReader) GetInt32() int {
 func WriteString(buf *bytes.Buffer, value string) error {
 	err := binary.Write(buf, binary.LittleEndian, int32(len(value)))
 	if err != nil {
-		return  err
+		return err
 	}
 
 	_, err = buf.WriteString(value)

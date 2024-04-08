@@ -1,7 +1,7 @@
 package scenegraph
 
 import (
-	"github.com/mattkimber/gandalf/geometry"
+	"github.com/ahyangyi/gandalf/geometry"
 	"math"
 )
 
@@ -30,8 +30,8 @@ func max(a int, b int) int {
 
 func (e *Extents) GetBounds() Extent {
 	result := Extent{
-		Min: geometry.Point{X: math.MaxInt32, Y: math.MaxInt32, Z: math.MaxInt32 },
-		Max: geometry.Point{X: math.MinInt32, Y: math.MinInt32, Z: math.MinInt32 },
+		Min: geometry.Point{X: math.MaxInt32, Y: math.MaxInt32, Z: math.MaxInt32},
+		Max: geometry.Point{X: math.MinInt32, Y: math.MinInt32, Z: math.MinInt32},
 	}
 
 	for _, ex := range *e {

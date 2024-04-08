@@ -2,7 +2,7 @@ package utils
 
 import (
 	"bytes"
-	"github.com/mattkimber/gandalf/magica/types"
+	"github.com/ahyangyi/gandalf/magica/types"
 	"io/ioutil"
 	"os"
 )

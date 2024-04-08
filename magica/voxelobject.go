@@ -1,10 +1,10 @@
 package magica
 
 import (
-	"github.com/mattkimber/gandalf/geometry"
-	"github.com/mattkimber/gandalf/magica/scenegraph"
-	"github.com/mattkimber/gandalf/magica/types"
-	"github.com/mattkimber/gandalf/utils"
+	"github.com/ahyangyi/gandalf/geometry"
+	"github.com/ahyangyi/gandalf/magica/scenegraph"
+	"github.com/ahyangyi/gandalf/magica/types"
+	"github.com/ahyangyi/gandalf/utils"
 )
 
 type VoxelData [][][]byte
@@ -129,9 +129,9 @@ func (v *VoxelObject) Split(size int) scenegraph.Node {
 
 				maxX, maxY, maxZ := 0, 0, 0
 
-				object := NewVoxelObject(geometry.Point{X: size, Y: size, Z:size}, v.PaletteData)
+				object := NewVoxelObject(geometry.Point{X: size, Y: size, Z: size}, v.PaletteData)
 
-				object.Iterate(func(i,j,k int) {
+				object.Iterate(func(i, j, k int) {
 					i0 := i + (x * size)
 					j0 := j + (y * size)
 					k0 := k + (z * size)
@@ -151,21 +151,21 @@ func (v *VoxelObject) Split(size int) scenegraph.Node {
 				maxZ = maxZ + (maxZ % 2)
 
 				node := scenegraph.Node{
-					Location: geometry.Point{X: (x*size)+(maxX/2), Y: (y*size)+(maxY/2), Z: (z*size)+(maxZ/2)},
+					Location: geometry.Point{X: (x * size) + (maxX / 2), Y: (y * size) + (maxY / 2), Z: (z * size) + (maxZ / 2)},
 					Size:     types.Size{X: maxX, Y: maxY, Z: maxZ},
-					Models:   []scenegraph.Model{{
+					Models: []scenegraph.Model{{
 						Points: object.GetPoints(),
 						Size:   types.Size{X: maxX, Y: maxY, Z: maxZ},
-						}},
+					}},
 				}
 				nodes = append(nodes, node)
 			}
 		}
 	}
-	
+
 	return scenegraph.Node{
 		Location: geometry.Point{X: 0, Y: 0, Z: 0},
-		Size:   types.Size{X: objectsX * size, Y: objectsY * size, Z: objectsZ * size},
+		Size:     types.Size{X: objectsX * size, Y: objectsY * size, Z: objectsZ * size},
 		Children: nodes,
 	}
 }

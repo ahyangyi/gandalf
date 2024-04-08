@@ -29,7 +29,7 @@ func (p *Point) IsInBounds(b Bounds) bool {
 }
 
 // NewPoint is a shortcut to create a new point
-func NewPoint(x,y,z int) Point {
+func NewPoint(x, y, z int) Point {
 	return Point{
 		X: x,
 		Y: y,
@@ -38,9 +38,9 @@ func NewPoint(x,y,z int) Point {
 }
 
 // NewBounds is a shortcut to create a new bounds
-func NewBounds(x1,y1,z1,x2,y2,z2 int) Bounds {
+func NewBounds(x1, y1, z1, x2, y2, z2 int) Bounds {
 	return Bounds{
-		Min: NewPoint(x1,y1,z1),
-		Max: NewPoint(x2,y2,z2),
+		Min: NewPoint(x1, y1, z1),
+		Max: NewPoint(x2, y2, z2),
 	}
 }

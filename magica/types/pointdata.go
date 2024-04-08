@@ -3,7 +3,7 @@ package types
 import (
 	"bytes"
 	"encoding/binary"
-	"github.com/mattkimber/gandalf/geometry"
+	"github.com/ahyangyi/gandalf/geometry"
 )
 
 type PointData []geometry.PointWithColour
@@ -12,7 +12,7 @@ func (r *MagicaReader) GetPointData() PointData {
 	data := r.buffer.Bytes()
 	result := make([]geometry.PointWithColour, len(data)/4)
 
-	for i := 0; i + 4 <= len(data); i += 4 {
+	for i := 0; i+4 <= len(data); i += 4 {
 		point := geometry.PointWithColour{
 			Point: geometry.Point{X: int(data[i]), Y: int(data[i+1]), Z: int(data[i+2])}, Colour: data[i+3],
 		}
@@ -41,11 +41,10 @@ func (p *PointData) GetBytes() ([]byte, error) {
 	return buf.Bytes(), nil
 }
 
-
-func(p *PointData) IsChunk() bool {
+func (p *PointData) IsChunk() bool {
 	return true
 }
 
-func(p *PointData) GetChunkName() string {
+func (p *PointData) GetChunkName() string {
 	return "XYZI"
 }

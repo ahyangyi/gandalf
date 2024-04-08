@@ -7,13 +7,13 @@ import (
 
 func TestGroup_GetGroup(t *testing.T) {
 	group := Group{
-		NodeID:     1,
+		NodeID: 1,
 		Attributes: Dictionary{
 			Values: map[string]string{
 				"foo": "bar",
 			},
 		},
-		ChildNodes: []int{2,3,4},
+		ChildNodes: []int{2, 3, 4},
 	}
 
 	bytes, err := group.GetBytes()
