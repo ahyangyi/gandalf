@@ -105,6 +105,8 @@ func GetMagicaVoxelObject(handle io.Reader, layers []int) (VoxelObject, error) {
 		case "nSHP":
 			shape := rd.GetShape()
 			scenegraphMap[shape.NodeID] = &shape
+		case "LAYR":
+			layer := rd.GetLayer()
 		default:
 		}
 	}
