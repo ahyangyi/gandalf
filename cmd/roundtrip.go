@@ -2,24 +2,38 @@ package main
 
 import (
 	"flag"
+	"fmt"
 	"github.com/ahyangyi/gandalf/magica"
 	"log"
-	"strings"
 )
 
 func main() {
+	source := flag.String("source", "", "Path to the source file")
+	destination := flag.String("destination", "", "Path to the destination file")
+	var discards []string
+	flag.Var((*stringsFlag)(&discards), "discard", "List of object names to delete")
+
+	// Parse flags
 	flag.Parse()
 
-	for _, arg := range flag.Args() {
-		obj, err := magica.FromFile(arg)
-		if err != nil {
-			log.Fatalf("could not read file: %s", err)
-		}
-
-		outFile := strings.Replace(arg, ".vox", "-out.vox", 1)
-		err = obj.SaveToFile(outFile)
-		if err != nil {
-			log.Fatalf("could not write file: %s", err)
-		}
+	obj, err := magica.FromFileWithLayersAndDisallowedLayerNames(*source, []int{}, discards)
+	if err != nil {
+		log.Fatalf("could not read file: %s", err)
 	}
+
+	err = obj.SaveToFile(*destination)
+	if err != nil {
+		log.Fatalf("could not write file: %s", err)
+	}
+}
+
+type stringsFlag []string
+
+func (sf *stringsFlag) String() string {
+	return fmt.Sprintf("%v", *sf)
+}
+
+func (sf *stringsFlag) Set(value string) error {
+	*sf = append(*sf, value)
+	return nil
 }

@@ -55,7 +55,7 @@ func getSize(handle io.Reader) int64 {
 	return parsedSize
 }
 
-func GetMagicaVoxelObject(handle io.Reader, layers []int) (VoxelObject, error) {
+func GetMagicaVoxelObjectWithDisallowedLayerNames(handle io.Reader, layers []int, disallowedLayerNames []string) (VoxelObject, error) {
 	if !isHeaderValid(handle) {
 		return VoxelObject{}, fmt.Errorf("header not valid")
 	}
@@ -109,7 +109,7 @@ func GetMagicaVoxelObject(handle io.Reader, layers []int) (VoxelObject, error) {
 		}
 	}
 
-	graph := scenegraph.GetScenegraph(scenegraphMap, layers, pointData, sizeData)
+	graph := scenegraph.GetScenegraph(scenegraphMap, layers, disallowedLayerNames, pointData, sizeData)
 	model := graph.GetCompositeModel()
 
 	object := VoxelObject{}
@@ -119,18 +119,23 @@ func GetMagicaVoxelObject(handle io.Reader, layers []int) (VoxelObject, error) {
 	return object, nil
 }
 
+func GetMagicaVoxelObject(handle io.Reader, layers []int) (v VoxelObject, err error) {
+	v, err = GetMagicaVoxelObjectWithDisallowedLayerNames(handle, layers, []string{})
+	return
+}
+
 func GetFromReader(handle io.Reader, layers []int) (v VoxelObject, err error) {
 	v, err = GetMagicaVoxelObject(handle, layers)
 	return
 }
 
-func FromFileWithLayers(filename string, layers []int) (v VoxelObject, err error) {
+func FromFileWithLayersAndDisallowedLayerNames(filename string, layers []int, disallowedLayerNames []string) (v VoxelObject, err error) {
 	handle, err := os.Open(filename)
 	if err != nil {
 		return VoxelObject{}, err
 	}
 
-	v, err = GetFromReader(handle, layers)
+	v, err = GetMagicaVoxelObjectWithDisallowedLayerNames(handle, layers, disallowedLayerNames)
 	if err != nil {
 		return v, err
 	}
@@ -140,6 +145,10 @@ func FromFileWithLayers(filename string, layers []int) (v VoxelObject, err error
 	}
 
 	return v, nil
+}
+
+func FromFileWithLayers(filename string, layers []int) (v VoxelObject, err error) {
+	return FromFileWithLayersAndDisallowedLayerNames(filename, layers, []string{})
 }
 
 func FromFile(filename string) (v VoxelObject, err error) {
