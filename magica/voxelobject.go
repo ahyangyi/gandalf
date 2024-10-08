@@ -19,7 +19,7 @@ func (v *VoxelObject) GetPoints() (result types.PointData) {
 	ct := 0
 
 	v.Iterate(func(x, y, z int) {
-		if v.Voxels[x][y][z] != 0 {
+		if v.Voxels[x][y][z] != 0 || x == v.Size.X-1 && y == v.Size.Y-1 && z == v.Size.Z-1 {
 			ct++
 		}
 	})
