@@ -55,7 +55,7 @@ func getSize(handle io.Reader) int64 {
 	return parsedSize
 }
 
-func GetMagicaVoxelObjectWithDisallowedLayerNames(handle io.Reader, layers []int, disallowedLayerNames []string) (VoxelObject, error) {
+func GetMagicaVoxelObjectWithFilter(handle io.Reader, layers []int, filter func(string) bool) (VoxelObject, error) {
 	if !isHeaderValid(handle) {
 		return VoxelObject{}, fmt.Errorf("header not valid")
 	}
@@ -109,7 +109,7 @@ func GetMagicaVoxelObjectWithDisallowedLayerNames(handle io.Reader, layers []int
 		}
 	}
 
-	graph := scenegraph.GetScenegraph(scenegraphMap, layers, disallowedLayerNames, pointData, sizeData)
+	graph := scenegraph.GetScenegraph(scenegraphMap, layers, filter, pointData, sizeData)
 	model := graph.GetCompositeModel()
 
 	object := VoxelObject{}
@@ -120,7 +120,7 @@ func GetMagicaVoxelObjectWithDisallowedLayerNames(handle io.Reader, layers []int
 }
 
 func GetMagicaVoxelObject(handle io.Reader, layers []int) (v VoxelObject, err error) {
-	v, err = GetMagicaVoxelObjectWithDisallowedLayerNames(handle, layers, []string{})
+	v, err = GetMagicaVoxelObjectWithFilter(handle, layers, func(string) bool { return true })
 	return
 }
 
@@ -129,13 +129,13 @@ func GetFromReader(handle io.Reader, layers []int) (v VoxelObject, err error) {
 	return
 }
 
-func FromFileWithLayersAndDisallowedLayerNames(filename string, layers []int, disallowedLayerNames []string) (v VoxelObject, err error) {
+func FromFileWithLayersAndFilter(filename string, layers []int, filter func(string) bool) (v VoxelObject, err error) {
 	handle, err := os.Open(filename)
 	if err != nil {
 		return VoxelObject{}, err
 	}
 
-	v, err = GetMagicaVoxelObjectWithDisallowedLayerNames(handle, layers, disallowedLayerNames)
+	v, err = GetMagicaVoxelObjectWithFilter(handle, layers, filter)
 	if err != nil {
 		return v, err
 	}
@@ -148,7 +148,7 @@ func FromFileWithLayersAndDisallowedLayerNames(filename string, layers []int, di
 }
 
 func FromFileWithLayers(filename string, layers []int) (v VoxelObject, err error) {
-	return FromFileWithLayersAndDisallowedLayerNames(filename, layers, []string{})
+	return FromFileWithLayersAndFilter(filename, layers, func(string) bool { return true })
 }
 
 func FromFile(filename string) (v VoxelObject, err error) {

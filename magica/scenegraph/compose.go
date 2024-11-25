@@ -89,7 +89,7 @@ func (n *Node) decomposeWithIDs(id, shapeID *int, graph Map, pointData *[]types.
 	return rootTranslation.NodeID
 }
 
-func Compose(graph Map, current types.SceneGraphItem, x, y, z, layer int, allowedLayers []int, layerName string, disallowedLayerNames []string, pointData []types.PointData, sizeData []types.Size) (result Node) {
+func Compose(graph Map, current types.SceneGraphItem, x, y, z, layer int, allowedLayers []int, layerName string, filter func(string) bool, pointData []types.PointData, sizeData []types.Size) (result Node) {
 	if current.GetType() == types.SGTranslation {
 		tn := current.(*types.Translation)
 		for _, frame := range tn.Frames {
@@ -117,12 +117,7 @@ func Compose(graph Map, current types.SceneGraphItem, x, y, z, layer int, allowe
 		}
 
 		if isAllowed {
-			for _, disallowedLayerName := range disallowedLayerNames {
-				if disallowedLayerName == layerName {
-					isAllowed = false
-					break
-				}
-			}
+			isAllowed = filter(layerName)
 		}
 
 		shp := current.(*types.Shape)
@@ -144,7 +139,7 @@ func Compose(graph Map, current types.SceneGraphItem, x, y, z, layer int, allowe
 	for _, child := range current.GetChildren() {
 		next, ok := graph[child]
 		if ok {
-			children = append(children, Compose(graph, next, x, y, z, layer, allowedLayers, layerName, disallowedLayerNames, pointData, sizeData))
+			children = append(children, Compose(graph, next, x, y, z, layer, allowedLayers, layerName, filter, pointData, sizeData))
 		}
 	}
 
