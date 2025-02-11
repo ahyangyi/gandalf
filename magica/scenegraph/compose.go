@@ -117,10 +117,13 @@ func Compose(graph Map, current types.SceneGraphItem, x, y, z, layer int, allowe
 		size := types.Size{}
 		models := make([]Model, len(shp.Models))
 
-		if isAllowed {
-			for idx, child := range shp.Models {
-				models[idx] = Model{Points: pointData[child], Size: sizeData[child]}
-				size = sizeData[child]
+		for idx, child := range shp.Models {
+			models[idx] = Model{Points: pointData[child], Size: sizeData[child]}
+			size = sizeData[child]
+			if !isAllowed {
+				for i := 0; i < len(models[idx].Points); i++ {
+					models[idx].Points[i].Colour = 0
+				}
 			}
 		}
 
